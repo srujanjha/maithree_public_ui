@@ -60,22 +60,32 @@ export class AppService {
     }
 
     addProduct(product:any){
-        console.log(product);
-        return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
-                .map((response: Response) => {
-                    let resp = response;
-                    console.log(resp);
-                    return resp;
-            });
+      console.log(product);
+      return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
     }
     editProduct(product:any){
-        console.log(product);
-        return this.http.post(this.getBaseUrl() + "/admin/editProduct",product)
-                .map((response: Response) => {
-                    let resp = response;
-                    console.log(resp);
-                    return resp;
-            });
+      console.log(product);
+      return this.http.post(this.getBaseUrl() + "/admin/editProduct",product)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
+    }
+
+    addStudent(student:any){
+      console.log(student);
+      return this.http.post(this.getBaseUrl() + "/admin/addStudent",student)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
     }
 
     getTeachersList(branchId: string) {
@@ -85,10 +95,52 @@ export class AppService {
         });
     }
 
+    getStudentList(branchId: string) {
+        return this.http.get(this.getBaseUrl()+"/branches/" +branchId + "/getStudents").map((response: Response) => {
+               let studentList = response;
+               return studentList;
+       });
+   }
+   getProductsForStudent(branchId: string, data: any) {
+       console.log("Value for data", data);
+        return this.http.post(this.getBaseUrl()+"/branches/" +branchId + "/getProductsForStudent",data)
+            .map((response: Response) => {
+                let resp = response;
+                return resp;
+        });
+    }
+
+    getTasksForProduct(branchId: string, data: any) {
+        console.log("Value for data", data);
+         return this.http.post(this.getBaseUrl()+"/branches/" +branchId + "/getTasksForProduct",data)
+             .map((response: Response) => {
+                 let resp = response;
+                 return resp;
+         });
+     }
+     saveTasks(branchId: string, data: any) {
+        console.log("Value for data", data);
+         return this.http.post(this.getBaseUrl()+"/branches/" +branchId + "/saveStudentTracking",data)
+             .map((response: Response) => {
+                 let resp = response;
+                 return resp;
+         });
+     }
+
+
     getProducts(){
          return this.http.get(this.getBaseUrl()+"/admin/getProducts").map((response: Response) => {
                 let productList = response;
                 return productList;
+        });
+    }
+
+
+    //get product and task level details for selected branch in Student page.
+    getProductsDetailsForBranch(branchId: string){
+         return this.http.get(this.getBaseUrl()+"/admin/getAllProductDetails?branchId="+branchId).map((response: Response) => {
+                let productDetails = response;
+                return productDetails;
         });
     }
 
